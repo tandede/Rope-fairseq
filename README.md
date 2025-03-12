@@ -5,8 +5,8 @@
 * **To install fairseq** and develop locally:
 
 ``` bash
-git clone https://github.com/tandede/Rope-fairseq.git
-cd Rope-fairseq
+git clone https://github.com/tandede/fairseq.git
+cd fairseq
 pip install --editable ./
 
 ```
@@ -25,22 +25,28 @@ pip install sacremoses
 ```
 ## 1.下载安装
 ``` bash
-git clone https://github.com/tandede/Rope-fairseq.git
-cd Rope-fairseq
+git clone https://github.com/tandede/fairseq.git
+```
+``` bash
+cd fairseq
+```
+``` bash
 pip install --editable ./
 ```
 ## 2. 数据下载、预处理
 ``` bash
-cd /yourpath/Rope-fairseq/examples/translation
+cd /yourpath/fairseq/examples/translation
+```
+``` bash
  ./prepare-wmt14en2de.sh
 ```
 ## 3.Binarize the dataset
 ``` bash
 fairseq-preprocess \
     --source-lang en --target-lang de \
-    --trainpref /yourpath/Rope-fairseq/examples/translation/wmt17_en_de/train \
-    --validpref /yourpath/Rope-fairseq/examples/translation/wmt17_en_de/valid \
-    --testpref /yourpath/Rope-fairseq/examples/translation/wmt17_en_de/test \
+    --trainpref /yourpath/fairseq/examples/translation/wmt17_en_de/train \
+    --validpref /yourpath/fairseq/examples/translation/wmt17_en_de/valid \
+    --testpref /yourpath/fairseq/examples/translation/wmt17_en_de/test \
     --destdir data-bin/wmt17_en_de --thresholdtgt 0 --thresholdsrc 0 \
     --workers 20
  ```
