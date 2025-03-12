@@ -28,7 +28,7 @@ def write_version_py():
 version = write_version_py()
 
 
-with open("README.md") as f:
+with open("README_.md") as f:
     readme = f.read()
 
 
