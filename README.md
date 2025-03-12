@@ -6,7 +6,11 @@
 
 ``` bash
 git clone https://github.com/tandede/fairseq.git
+```
+``` bash
 cd fairseq
+```
+``` bash
 pip install --editable ./
 
 ```
@@ -21,6 +25,8 @@ pip install --editable ./
 ``` bash
 # 准备工作
 pip install tensorboardX
+```
+``` bash
 pip install sacremoses
 ```
 ## 1.下载安装
