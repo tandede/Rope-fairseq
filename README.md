@@ -107,14 +107,7 @@ python scripts/average_checkpoints.py \
     --sys generate.sys \
     --ref generate.ref
   ```
-# License
 
-fairseq(-py) is MIT-licensed.
-The license applies to the pre-trained models as well.
-
-# Citation
-
-Please cite as:
 
 ``` bibtex
 @inproceedings{ott2019fairseq,
