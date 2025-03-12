@@ -10,7 +10,13 @@ cd Rope-fairseq
 pip install --editable ./
 
 ```
-
+# 修改部分
+## 主要修改修改了两个文件
+### 1. 修改了Rope-fairseq/fairseq/modules/multihead_attention.py
+#### 添加了rope函数接口，使其能够融入transformer预训练中
+### 2. 修改了Rope-fairseq/fairseq/modules/rotary_positional_embedding.py
+#### 添加了几个不同的编码形式，分别进行预训练对比
+### 3.将Rope-fairseq/fairseq/models/transformer中下的几个python文件，将原始绝对位置编码进行注释，不进行添加
 # Pre-trained models and examples
 ``` bash
 # 准备工作
@@ -98,8 +104,8 @@ python scripts/average_checkpoints.py \
   ### 计算BLEU
   ``` bash
   python /yourpath/fairseq_cli/score.py \
-    --sys wmt14-en-de.extra_refs.tok.gen.3experts \
-    --ref wmt14-en-de.extra_refs.tok
+    --sys generate.sys \
+    --ref generate.ref
   ```
 # License
 

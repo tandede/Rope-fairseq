@@ -124,8 +124,8 @@ class TransformerEncoderBase(FairseqEncoder):
             token_embedding = self.embed_tokens(src_tokens)
         x = embed = self.embed_scale * token_embedding
         # TODO:添加位置信息
-        if self.embed_positions is not None:
-            x = embed + self.embed_positions(src_tokens)
+        # if self.embed_positions is not None:
+        #     x = embed + self.embed_positions(src_tokens)
         if self.layernorm_embedding is not None:
             x = self.layernorm_embedding(x)
         x = self.dropout_module(x)

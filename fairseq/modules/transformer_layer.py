@@ -360,6 +360,7 @@ class TransformerDecoderLayerBase(nn.Module):
             self_attention=not cfg.cross_self_attention,
             q_noise=self.quant_noise,
             qn_block_size=self.quant_noise_block_size,
+            use_rope=True,
             xformers_att_config=cfg.decoder.xformers_att_config,
         )
 
@@ -373,6 +374,7 @@ class TransformerDecoderLayerBase(nn.Module):
             encoder_decoder_attention=True,
             q_noise=self.quant_noise,
             qn_block_size=self.quant_noise_block_size,
+            use_rope=False,
             xformers_att_config=cfg.encoder.xformers_att_config,
         )
 
