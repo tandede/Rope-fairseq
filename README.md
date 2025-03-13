@@ -12,7 +12,11 @@ cd fairseq
 ```
 ``` bash
 pip install --editable ./
-
+```
+### 如果报：ERROR: Cannot install fairseq and fairseq==0.12.2 because these package versions have conflicting dependencies.
+### 则：
+``` bash
+pip install pip==24.0
 ```
 # 修改部分
 ## 主要修改修改了两个文件
@@ -24,10 +28,7 @@ pip install --editable ./
 # Pre-trained models and examples
 ``` bash
 # 准备工作
-pip install tensorboardX
-```
-``` bash
-pip install sacremoses
+pip install -r requirements.txt
 ```
 ## 1.下载安装
 ``` bash
