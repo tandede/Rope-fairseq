@@ -132,6 +132,7 @@ python scripts/average_checkpoints.py \
     --remove-bpe --beam 4 --batch-size 64 --lenpen 0.6 \
     --max-len-a 1 --max-len-b 50|tee generate.out
   ```
+  ## 计算bleu分数
   ### 使用sh文件
   ``` bash
   sh socre.sh
