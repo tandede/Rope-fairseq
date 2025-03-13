@@ -44,6 +44,12 @@ pip install --editable ./
 ``` bash
 cd /yourpath/fairseq/examples/translation
 ```
+### 若报：bash: ./prepare-wmt14en2de.sh: Permission denied
+### 则：
+``` bash
+chmod +x prepare-wmt14en2de.sh
+```
+
 ``` bash
  ./prepare-wmt14en2de.sh
 ```
