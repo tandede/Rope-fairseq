@@ -128,7 +128,7 @@ python scripts/average_checkpoints.py \
   ### 或
   ``` bash
   CUDA_VISIBLE_DEVICES=0 python generate.py \
-    data-bin/wmt17_en_de --path /yourpath/averaged_model.pt \
+    data-bin/wmt17_en_de --path averaged_model.pt \
     --remove-bpe --beam 4 --batch-size 64 --lenpen 0.6 \
     --max-len-a 1 --max-len-b 50|tee generate.out
   ```
@@ -144,7 +144,7 @@ python scripts/average_checkpoints.py \
   grep ^H generate.out |cut -f3- | perl -ple 's{(\S)-(\S)}{$1 ##AT##-##AT## $2}g' > generate.sys
   ```  
   ``` bash
-  python /yourpath/fairseq_cli/score.py \
+  python fairseq_cli/score.py \
     --sys generate.sys \
     --ref generate.ref
   ```
