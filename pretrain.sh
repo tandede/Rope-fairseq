@@ -11,4 +11,8 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --eval-bleu-detok moses \
     --eval-bleu-remove-bpe \
     --eval-bleu-print-samples \
-    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric
+    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
+    --tensorboard-logdir ./tensorboard_logs \
+    --save-interval-updates 5000 \
+    --keep-interval-updates 5 \
+    --save-dir checkpoints

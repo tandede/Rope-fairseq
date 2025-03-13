@@ -86,14 +86,18 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --eval-bleu-detok moses \
     --eval-bleu-remove-bpe \
     --eval-bleu-print-samples \
-    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric
+    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
+    --tensorboard-logdir ./tensorboard_logs \
+    --save-interval-updates 5000 \
+    --keep-interval-updates 5 \
+    --save-dir checkpoints
   ```
   ### 多卡训练
   ``` bash
   CUDA_VISIBLE_DEVICES=0,1  fairseq-train \
     data-bin/wmt17_en_de \
-    --distributed-world-size 2
-    --distributed-num-procs 2
+    --distributed-world-size 2 \
+    --distributed-num-procs 2 \
     --arch transformer_wmt_en_de --share-all-embeddings \
     --optimizer adam --adam-betas '(0.9, 0.98)' \
     --clip-norm 0.0   --lr-scheduler inverse_sqrt --warmup-init-lr 1e-07 --warmup-updates 4000  \
@@ -105,7 +109,12 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --eval-bleu-remove-bpe \
     --eval-bleu-print-samples \
     --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
-    --update-freq 2 |tee exp3.log
+    --update-freq 2 \
+    --tensorboard-logdir ./tensorboard_logs \
+    --save-interval-updates 5000 \
+    --keep-interval-updates 5 \
+    --save-dir checkpoints \
+    |tee exp3.log
   ```
   ## 5. Test
   ### 平均检查点
