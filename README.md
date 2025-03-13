@@ -2,13 +2,16 @@
 
 * [PyTorch](http://pytorch.org/) version >= 1.10.0
 * Python version >= 3.8
+## 1.下载安装
 * **To install fairseq** and develop locally:
-
 ``` bash
 git clone https://github.com/tandede/fairseq.git
 ```
 ``` bash
 cd fairseq
+```
+``` bash
+sh prework.sh
 ```
 ``` bash
 pip install --editable ./
@@ -26,48 +29,53 @@ pip install pip==24.0
 #### 添加了几个不同的编码形式，分别进行预训练对比
 ### 3.将Rope-fairseq/fairseq/models/transformer中下的几个python文件，将原始绝对位置编码进行注释，不进行添加
 # Pre-trained models and examples
-``` bash
-# 准备工作
-pip install -r requirements.txt
-```
-## 1.下载安装
-``` bash
-git clone https://github.com/tandede/fairseq.git
-```
-``` bash
-cd fairseq
-```
-``` bash
-pip install --editable ./
+
+
 ```
 ## 2. 数据下载、预处理
+### 直接使用sh文件
 ``` bash
-cd /yourpath/fairseq/examples/translation
+sh data_download.sh
+```
+### 或者逐步使用以下命令
+``` bash
+cd fairseq/examples/translation
+```
+``` bash
+ ./prepare-wmt14en2de.sh
 ```
 ### 若报：bash: ./prepare-wmt14en2de.sh: Permission denied
 ### 则：
 ``` bash
 chmod +x prepare-wmt14en2de.sh
 ```
-
-``` bash
- ./prepare-wmt14en2de.sh
-```
 ## 3.Binarize the dataset
+### 直接使用sh文件
+``` bash
+sh data_prepare.sh
+```
+### 或者使用以下命令
+``` bash
+cd ../..
+```
 ``` bash
 fairseq-preprocess \
     --source-lang en --target-lang de \
-    --trainpref /yourpath/fairseq/examples/translation/wmt17_en_de/train \
-    --validpref /yourpath/fairseq/examples/translation/wmt17_en_de/valid \
-    --testpref /yourpath/fairseq/examples/translation/wmt17_en_de/test \
+    --trainpref examples/translation/wmt17_en_de/train \
+    --validpref examples/translation/wmt17_en_de/valid \
+    --testpref examples/translation/wmt17_en_de/test \
     --destdir data-bin/wmt17_en_de --thresholdtgt 0 --thresholdsrc 0 \
     --workers 20
  ```
   ## 4. Train
-  ### 单卡训练
+  ### 使用sh文件
+  ``` bash
+  sh pretrain.sh
+  ```
+  ### 或使用以下命令单卡训练
   ``` bash
 CUDA_VISIBLE_DEVICES=0 fairseq-train \
-    /yourpath/data-bin/wmt17_en_de  \
+    data-bin/wmt17_en_de  \
     --arch transformer_wmt_en_de --share-decoder-input-output-embed \
     --optimizer adam --adam-betas '(0.9, 0.98)' --clip-norm 0.0 \
     --lr 5e-4 --lr-scheduler inverse_sqrt --warmup-updates 4000 \
@@ -84,7 +92,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
   ### 多卡训练
   ``` bash
   CUDA_VISIBLE_DEVICES=0,1  fairseq-train \
-    /yourpath//data-bin/wmt17_en_de \
+    data-bin/wmt17_en_de \
     --distributed-world-size 2
     --distributed-num-procs 2
     --arch transformer_wmt_en_de --share-all-embeddings \
@@ -102,25 +110,38 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
   ```
   ## 5. Test
   ### 平均检查点
+  ### 使用sh文件
+  ``` bash
+  sh average.sh
+  ```
+  ### 或
   ``` bash
 python scripts/average_checkpoints.py \
-    --inputs /yourpath/checkpoints \
+    --inputs checkpoints \
     --num-epoch-checkpoints  5 --output averaged_model.pt
   ```
   ### 生成测试文件
+  ### 使用sh文件
+  ``` bash
+  sh generate.sh
+  ```
+  ### 或
   ``` bash
   CUDA_VISIBLE_DEVICES=0 python generate.py \
     data-bin/wmt17_en_de --path /yourpath/averaged_model.pt \
     --remove-bpe --beam 4 --batch-size 64 --lenpen 0.6 \
     --max-len-a 1 --max-len-b 50|tee generate.out
   ```
-  ### 加点
+  ### 使用sh文件
+  ``` bash
+  sh socre.sh
+  ```
+  ### 或
   ```bash
   grep ^T generate.out | cut -f2- | perl -ple 's{(\S)-(\S)}{$1 ##AT##-##AT## $2}g' > generate.ref
 
   grep ^H generate.out |cut -f3- | perl -ple 's{(\S)-(\S)}{$1 ##AT##-##AT## $2}g' > generate.sys
   ```  
-  ### 计算BLEU
   ``` bash
   python /yourpath/fairseq_cli/score.py \
     --sys generate.sys \
