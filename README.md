@@ -31,7 +31,6 @@ pip install pip==24.0
 # Pre-trained models and examples
 
 
-```
 ## 2. 数据下载、预处理
 ### 直接使用sh文件
 ``` bash
