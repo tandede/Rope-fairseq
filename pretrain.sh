@@ -6,6 +6,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --dropout 0.3 --weight-decay 0.0001 \
     --criterion label_smoothed_cross_entropy --label-smoothing 0.1 \
     --max-tokens 4096 \
+    --max-update 150000 \
     --eval-bleu \
     --eval-bleu-args '{"beam": 4, "max_len_a": 1.2, "max_len_b": 10}' \
     --eval-bleu-detok moses \
@@ -13,6 +14,3 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --eval-bleu-print-samples \
     --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
     --tensorboard-logdir ./tensorboard_logs \
-    --save-interval-updates 5000 \
-    --keep-interval-updates 5 \
-    --save-dir checkpoints
