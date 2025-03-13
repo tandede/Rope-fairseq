@@ -1,4 +1,3 @@
-cd ../..
 fairseq-preprocess \
     --source-lang en --target-lang de \
     --trainpref examples/translation/wmt17_en_de/train \
