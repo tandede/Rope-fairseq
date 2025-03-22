@@ -82,15 +82,14 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --criterion label_smoothed_cross_entropy --label-smoothing 0.1 \
     --max-tokens 4096 \
     --eval-bleu \
-    --eval-bleu-args '{"beam": 4, "max_len_a": 1.2, "max_len_b": 10}' \
+    --eval-bleu-args '{"beam": 5, "max_len_a": 1.2, "max_len_b": 10}' \
     --eval-bleu-detok moses \
     --eval-bleu-remove-bpe \
     --eval-bleu-print-samples \
     --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
-    --tensorboard-logdir ./tensorboard_logs \
-    --save-interval-updates 5000 \
-    --keep-interval-updates 5 \
-    --save-dir checkpoints
+    --tensorboard-logdir ./tensorboard_logs/rope \
+    --keep-last-epochs 5 \
+    --save-dir checkpoints/rope
   ```
   ### 多卡训练
   ``` bash
